@@ -11,22 +11,22 @@ public class Main {
         try {
             Scanner scanner = new Scanner(System.in);
 
-            // Input the number of test cases
+           
             System.out.print("Enter the number of test cases: ");
             int testCaseCount = Integer.parseInt(scanner.nextLine());
 
-            // Process each test case
+            
             for (int i = 1; i <= testCaseCount; i++) {
                 System.out.println("Enter JSON input for Test Case " + i + ": ");
                 String jsonInput = scanner.nextLine();
 
-                // Parse the JSON input
+                
                 JSONObject testcase = new JSONObject(jsonInput);
 
-                // Solve for the current test case
+               
                 BigInteger secret = solve(testcase);
 
-                // Print the result for this test case
+               
                 System.out.println("Secret for Test Case " + i + ": " + secret);
             }
 
@@ -37,12 +37,12 @@ public class Main {
     }
 
     public static BigInteger solve(JSONObject testcase) {
-        // Parse keys n and k
+ 
         JSONObject keys = testcase.getJSONObject("keys");
         int n = keys.getInt("n");
         int k = keys.getInt("k");
 
-        // Parse and decode the roots
+      
         TreeMap<Integer, BigInteger> points = new TreeMap<>();
         for (String key : testcase.keySet()) {
             if (!key.equals("keys")) {
@@ -54,7 +54,6 @@ public class Main {
             }
         }
 
-        // Use Lagrange interpolation to find the constant term (c)
         List<Entry<Integer, BigInteger>> selectedPoints = new ArrayList<>(points.entrySet()).subList(0, k);
         return lagrangeInterpolation(selectedPoints, BigInteger.ZERO);
     }
